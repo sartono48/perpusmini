@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 20, 2024 at 10:17 AM
+-- Generation Time: Apr 05, 2025 at 09:20 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -30,15 +30,17 @@ SET time_zone = "+00:00";
 CREATE TABLE `tb_admin` (
   `id_admin` int(11) NOT NULL,
   `username` varchar(30) NOT NULL,
-  `password` varchar(30) NOT NULL
+  `password` varchar(30) NOT NULL,
+  `level` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tb_admin`
 --
 
-INSERT INTO `tb_admin` (`id_admin`, `username`, `password`) VALUES
-(2, 'admin', 'admin');
+INSERT INTO `tb_admin` (`id_admin`, `username`, `password`, `level`) VALUES
+(2, 'admin', 'admin', 1),
+(3, 'anggota', 'anggota', 2);
 
 -- --------------------------------------------------------
 
@@ -60,7 +62,7 @@ CREATE TABLE `tb_anggota` (
 
 INSERT INTO `tb_anggota` (`id_anggota`, `nama`, `alamat`, `jk`, `kelas`) VALUES
 (1, 'Tono', 'Jelapan', 'l', 'XII RPL'),
-(11, 'Joko', 'Kretek', 'l', 'XII RPL');
+(11, 'Joko Susanto', 'Kretek', 'l', 'XII RPL');
 
 -- --------------------------------------------------------
 
@@ -74,6 +76,13 @@ CREATE TABLE `tb_buku` (
   `pengarang` varchar(30) NOT NULL,
   `penerbit` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tb_buku`
+--
+
+INSERT INTO `tb_buku` (`id_buku`, `judul`, `pengarang`, `penerbit`) VALUES
+(1, 'Al Quran dan Al Hadist', 'Andi', 'Andi');
 
 -- --------------------------------------------------------
 
@@ -97,8 +106,17 @@ CREATE TABLE `tb_pinjam` (
   `id_pinjam` int(11) NOT NULL,
   `id_anggota` int(11) NOT NULL,
   `tgl_pinjam` date NOT NULL,
-  `id_buku` int(11) NOT NULL
+  `id_buku` int(11) NOT NULL,
+  `tgl_kembali` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tb_pinjam`
+--
+
+INSERT INTO `tb_pinjam` (`id_pinjam`, `id_anggota`, `tgl_pinjam`, `id_buku`, `tgl_kembali`) VALUES
+(5, 1, '2024-12-27', 1, '2024-12-30'),
+(6, 11, '2024-12-30', 1, '2024-12-30');
 
 --
 -- Indexes for dumped tables
@@ -142,7 +160,7 @@ ALTER TABLE `tb_pinjam`
 -- AUTO_INCREMENT for table `tb_admin`
 --
 ALTER TABLE `tb_admin`
-  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tb_anggota`
@@ -154,7 +172,7 @@ ALTER TABLE `tb_anggota`
 -- AUTO_INCREMENT for table `tb_buku`
 --
 ALTER TABLE `tb_buku`
-  MODIFY `id_buku` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_buku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tb_kembali`
@@ -166,7 +184,7 @@ ALTER TABLE `tb_kembali`
 -- AUTO_INCREMENT for table `tb_pinjam`
 --
 ALTER TABLE `tb_pinjam`
-  MODIFY `id_pinjam` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pinjam` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
